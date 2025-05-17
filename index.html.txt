@@ -1,0 +1,82 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Case Stars</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #0b0c1b;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .case {
+      background: #222;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 300px;
+    }
+    button {
+      background: gold;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .balance {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎰 Case Stars</h1>
+  <div class="balance">⭐ Звезды: <span id="stars">0</span></div>
+
+  <div class="case">
+    <h2>Кейс за 10⭐</h2>
+    <button onclick="openCase(10)">Открыть</button>
+  </div>
+
+  <div class="case">
+    <h2>Кейс за 50⭐</h2>
+    <button onclick="openCase(50)">Открыть</button>
+  </div>
+
+  <script>
+    const starsElem = document.getElementById('stars');
+    let stars = parseInt(localStorage.getItem('stars')) || 20;
+    starsElem.textContent = stars;
+
+    function openCase(cost) {
+      if (stars < cost) {
+        alert("Недостаточно звезд!");
+        return;
+      }
+      stars -= cost;
+
+      // Рандомный выигрыш
+      const prize = Math.floor(Math.random() * (cost * 3));
+      stars += prize;
+
+      localStorage.setItem('stars', stars);
+      starsElem.textContent = stars;
+      alert(`Вы выиграли ${prize}⭐!`);
+    }
+
+    // Автозачисление звезды за запуск
+    if (!localStorage.getItem('launched')) {
+      stars += 10;
+      localStorage.setItem('launched', 'true');
+      localStorage.setItem('stars', stars);
+      starsElem.textContent = stars;
+    }
+  </script>
+</body>
+</html>
