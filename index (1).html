@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case.TG</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d0f1a;
+      color: white;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .stars {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .case {
+      margin: 10px auto;
+      background: #1e1f2e;
+      border-radius: 10px;
+      padding: 15px;
+      width: 200px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .case:hover {
+      background: #2a2b3e;
+    }
+    .case h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .result {
+      font-size: 28px;
+      color: #f0c330;
+      margin-top: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎰 Case.TG</h1>
+    <div class="stars">⭐ Ваши звёзды: <span id="balance">100</span></div>
+
+    <div class="case" onclick="openCase(10)">
+      <h3>Кейс за 10 ⭐</h3>
+    </div>
+    <div class="case" onclick="openCase(50)">
+      <h3>Кейс за 50 ⭐</h3>
+    </div>
+    <div class="case" onclick="openCase(100)">
+      <h3>Кейс за 100 ⭐</h3>
+    </div>
+
+    <div class="result" id="result">🎁 Результат: -</div>
+  </div>
+
+  <script>
+    let balance = 100;
+
+    function openCase(cost) {
+      if (balance < cost) {
+        alert("Недостаточно звёзд!");
+        return;
+      }
+
+      balance -= cost;
+      document.getElementById("balance").innerText = balance;
+
+      // Выплата (рандомная логика)
+      const reward = Math.floor(Math.random() * (cost * 3));
+      balance += reward;
+      document.getElementById("balance").innerText = balance;
+      document.getElementById("result").innerText = `🎁 Результат: +${reward} ⭐`;
+    }
+  </script>
+</body>
+</html>
